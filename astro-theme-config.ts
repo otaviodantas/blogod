@@ -24,7 +24,7 @@ const config = {
     description: 'Notes and ideas by Otavio Dantas',
     author: 'Otavio Dantas',
     /** Optional absolute or root-relative image URL for homepage/search/about social previews. */
-    defaultOgImage: '/og.png',
+    defaultOgImage: '',
   },
 
   // The logo already links to `/`. Add items here if you want visible header links.
@@ -45,32 +45,6 @@ const config = {
 
   behavior: {
     smoothScroll: true,
-  },
-
-  comments: {
-    // One-line switch after you fill the giscus values:
-    // mode: 'off'           -> no comments
-    // mode: 'giscus'        -> original giscus theme
-    // mode: 'giscus-custom' -> Tone custom giscus theme
-    // Local preview can also use PUBLIC_GISCUS_MODE and PUBLIC_GISCUS_* in .env.local.
-    mode: 'off',
-    provider: 'giscus',
-    giscus: {
-      repo: '',
-      repoId: '',
-      category: '',
-      categoryId: '',
-      mapping: 'pathname',
-      strict: '0',
-      reactionsEnabled: '0',
-      emitMetadata: '0',
-      inputPosition: 'bottom',
-      theme: 'preferred_color_scheme',
-      customLightTheme: '/giscus-light.css',
-      customDarkTheme: '/giscus-dark.css',
-      lang: 'en',
-      loading: 'eager',
-    },
   },
 
   social: {

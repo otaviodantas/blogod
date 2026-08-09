@@ -2,7 +2,6 @@
 import 'toc-rail/style.css';
 import '../styles/layouts/post.css';
 import type { CollectionEntry } from 'astro:content';
-import Comments from '../components/Comments.astro';
 import FeaturedPostGrid from '../components/FeaturedPostGrid.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import ImageLightbox from '../components/ImageLightbox.astro';
@@ -117,7 +116,6 @@ const jsonLd = serializeScriptJson({
         )
       }
     </article>
-    <Comments />
   </main>
   <ImageLightbox />
 

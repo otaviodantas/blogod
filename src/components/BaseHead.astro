@@ -9,8 +9,6 @@ import { serializeScriptJson } from '../utils/serialize-script-json';
 
 // Enable with PUBLIC_VERCEL_ANALYTICS=true.
 const analyticsEnabled = import.meta.env.PUBLIC_VERCEL_ANALYTICS === 'true';
-const commentsMode = import.meta.env.PUBLIC_GISCUS_MODE || config.comments.mode;
-const commentsEnabled = commentsMode === 'giscus' || commentsMode === 'giscus-custom';
 
 interface Props {
   title: string;
@@ -120,14 +118,6 @@ const websiteJsonLd =
 <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
 <link rel="sitemap" href={sitemapHref} />
 <link rel="preload" href={pretendardFontUrl} as="font" type="font/woff2" crossorigin />
-{
-  commentsEnabled && (
-    <>
-      <link rel="preconnect" href="https://giscus.app" crossorigin />
-      <link rel="preconnect" href="https://github.com" crossorigin />
-    </>
-  )
-}
 <meta name="theme-color" content="#f7fbfd" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#18181b" media="(prefers-color-scheme: dark)" />
 <link rel="alternate" type="application/rss+xml" title={`${SITE_TITLE} RSS`} href={rssHref} />
