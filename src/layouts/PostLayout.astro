@@ -1,87 +1,129 @@
 ---
-import '@/styles/global.css'
-import type { PostLayoutProps } from '@/types'
-import FormattedDate from '@/components/widgets/FormattedDate.astro'
-import FootnoteScroll from '@/components/widgets/FootnoteScroll.astro'
-import BaseHead from '@/components/layout/BaseHead.astro'
-import Footer from '@/components/layout/Footer.astro'
-import BackButton from '@/components/ui/BackButton.astro'
-import TableOfContents from '@/components/ui/TableOfContents.astro'
-import GradientMask from '@/components/ui/GradientMask.astro'
-import ImageOptimizer from '@/components/ui/ImageOptimizer.astro'
-import ImageViewer from '@/components/ui/ImageViewer.astro'
-import GitHubCard from '@/components/ui/GitHubCard.astro'
-import LinkCard from '@/components/ui/LinkCard.astro'
-import NeoDBCard from '@/components/ui/NeoDBCard.astro'
-import XPOST from '@/components/ui/XPOST.astro'
-import CopyCode from '@/components/ui/CopyCode.astro'
-import BaseLayout from '@/layouts/BaseLayout.astro'
+import 'toc-rail/style.css';
+import '../styles/layouts/post.css';
+import type { CollectionEntry } from 'astro:content';
+import Comments from '../components/Comments.astro';
+import FeaturedPostGrid from '../components/FeaturedPostGrid.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import ImageLightbox from '../components/ImageLightbox.astro';
+import ScrollFocus from '../components/ScrollFocus.astro';
+import BaseLayout from './BaseLayout.astro';
+import { SITE_AUTHOR, SITE_LANG, SITE_TITLE } from '../consts';
+import { getUiText } from '../ui';
+import { withBase } from '../utils/paths';
+import { serializeScriptJson } from '../utils/serialize-script-json';
 
-import { themeConfig } from '@/config'
+type Props = CollectionEntry<'posts'>['data'] & {
+  readingTime?: number;
+  relatedPosts?: CollectionEntry<'posts'>[];
+};
 
-const { title, pubDate, readingTime, toc = [], contentFeatures = {} } = Astro.props as PostLayoutProps
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  readingTime,
+  focusEffect,
+  relatedPosts = [],
+} = Astro.props;
 
-const postSlug = Astro.url.pathname.split('/').filter(Boolean).pop() || ''
-const ogImage = `/open-graph/${postSlug}.png`
-const shouldRenderToc = themeConfig.post.toc && toc.length > 0
-const shouldRenderCopyCode = themeConfig.post.copyCode && contentFeatures.hasCodeBlock
-const shouldRenderImageOptimizer = contentFeatures.hasContentImage
-const shouldRenderImageViewer = themeConfig.post.imageViewer && contentFeatures.hasContentImage
-const shouldRenderLinkCard = themeConfig.post.linkCard && contentFeatures.hasLinkCard
+const tr = getUiText();
+const postsBase = withBase('/posts');
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const pubDateISO = pubDate.toISOString();
+const updatedDateISO = updatedDate?.toISOString();
+
+const jsonLd = serializeScriptJson({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  datePublished: pubDateISO,
+  ...(updatedDateISO && { dateModified: updatedDateISO }),
+  url: canonicalURL.href,
+  ...(heroImage && { image: new URL(heroImage.src, Astro.site).href }),
+  author: { '@type': 'Person', name: SITE_AUTHOR },
+  publisher: { '@type': 'Organization', name: SITE_TITLE },
+  inLanguage: SITE_LANG,
+});
 ---
 
-<BaseLayout title={`${title} · ${themeConfig.site.title}`} description={themeConfig.site.description} type="post">
-  <BaseHead
-    title={`${title} · ${themeConfig.site.title}`}
-    description={themeConfig.site.description}
-    ogImage={ogImage}
-    slot="head"
-  />
-  <div class="post-container">
-    <main>
-      <div class="prose">
-        <GradientMask />
-        <BackButton />
-        {shouldRenderToc && <TableOfContents toc={toc} />}
-        <div class="title">
-          <h1>{title}</h1>
-          <div class="date">
-            <FormattedDate date={pubDate} context="post" />
-            {
-              themeConfig.post.readingTime && readingTime && (
-                <span class="reading-time">
-                  <span class="separator">·</span>
-                  {readingTime.text}
+<BaseLayout
+  title={title}
+  description={description}
+  image={heroImage}
+  type="article"
+  pubDate={pubDateISO}
+  updatedDate={updatedDateISO}
+  bodyClass="post-page"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+
+  {focusEffect && <ScrollFocus variant={focusEffect} />}
+
+  <main id="main-content" class="post-main">
+    <article data-pagefind-body>
+      <a href={postsBase} class="back-link">{tr.backLink}</a>
+
+      <header class="post-header">
+        <div class="post-accent"></div>
+        <div class="post-meta">
+          <FormattedDate class="meta-date" date={pubDate} />
+          {
+            readingTime && (
+              <>
+                <span class="dot">·</span>
+                <span class="meta-item">{tr.readingTime(readingTime)}</span>
+              </>
+            )
+          }
+          {
+            updatedDate && (
+              <>
+                <span class="dot">·</span>
+                <span class="meta-updated">
+                  {tr.updated} <FormattedDate date={updatedDate} />
                 </span>
-              )
-            }
-          </div>
+              </>
+            )
+          }
         </div>
-        <article class="content">
-          <slot />
-        </article>
+        <h1 class="post-title" data-pagefind-meta="title">{title}</h1>
+        {description && <p class="post-description">{description}</p>}
+      </header>
+
+      <div class="post-divider"></div>
+
+      <div class="prose" id="prose-content">
+        <slot />
       </div>
-    </main>
-    {shouldRenderImageOptimizer && <ImageOptimizer />}
-    {contentFeatures.hasFootnotes && <FootnoteScroll />}
-    {shouldRenderCopyCode && <CopyCode />}
-    {contentFeatures.hasGithubCard && <GitHubCard />}
-    {contentFeatures.hasXPost && <XPOST />}
-    {contentFeatures.hasNeoDBCard && <NeoDBCard />}
-    {shouldRenderImageViewer && <ImageViewer />}
-    {shouldRenderLinkCard && <LinkCard />}
-    {themeConfig.general.footer && <Footer />}
-  </div>
+
+      {
+        relatedPosts.length > 0 && (
+          <section class="related-section" data-pagefind-ignore="all">
+            <div class="related-header">
+              <p class="related-label">{tr.relatedPosts}</p>
+              <a href={postsBase} class="related-view-all">
+                {tr.allPosts}
+              </a>
+            </div>
+            <FeaturedPostGrid posts={relatedPosts} variant="related" />
+          </section>
+        )
+      }
+    </article>
+    <Comments />
+  </main>
+  <ImageLightbox />
+
+  <script>
+    import { mountReadingRailLoader } from '../scripts/reading-rail-loader';
+
+    mountReadingRailLoader();
+  </script>
 </BaseLayout>
-
-<style>
-  .post-container {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .post-container main {
-    flex: 1;
-  }
-</style>

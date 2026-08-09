@@ -1,67 +1,75 @@
 ---
-import { themeConfig } from '@/config'
-import { ClientRouter } from 'astro:transitions'
-import ThemeManager from '@/components/ui/ThemeManager.astro'
-import TransitionWrapper from '@/components/layout/TransitionWrapper.astro'
-import type { LayoutProps } from '@/types'
+import type { ImageMetadata } from 'astro';
+import config from '../../astro-theme-config';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import SearchPalette from '../components/SearchPalette.astro';
 
-type Props = LayoutProps
+interface Props {
+  title: string;
+  description: string;
+  image?: ImageMetadata;
+  ogImageUrl?: string;
+  type?: 'website' | 'article';
+  pubDate?: string;
+  updatedDate?: string;
+  robots?: string;
+  canonicalUrl?: string;
+  pageUrl?: string;
+  lang?: string;
+  locale?: string;
+  bodyClass?: string;
+}
 
-const { type = 'page' } = Astro.props
-const language = themeConfig.site.language || 'en-US'
-const contentWidth = themeConfig.general.contentWidth
-const fadeAnimation = themeConfig.general.fadeAnimation
-const widthValue = Math.min(parseFloat(contentWidth), 50)
-const shouldUseCustomWidth = widthValue > 25
-const finalWidth = shouldUseCustomWidth ? `${widthValue}rem` : '25rem'
+const {
+  title,
+  description,
+  image,
+  ogImageUrl,
+  type,
+  pubDate,
+  updatedDate,
+  robots,
+  canonicalUrl,
+  pageUrl,
+  lang,
+  locale,
+  bodyClass,
+} = Astro.props;
+const htmlLang = lang ?? config.site.lang;
 ---
 
-<html lang={language}>
+<!doctype html>
+<html lang={htmlLang} data-smooth-scroll={config.behavior.smoothScroll ? 'true' : 'false'}>
   <head>
-    <ThemeManager />
-    {fadeAnimation && <ClientRouter />}
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      ogImageUrl={ogImageUrl}
+      type={type}
+      pubDate={pubDate}
+      updatedDate={updatedDate}
+      robots={robots}
+      canonicalUrl={canonicalUrl}
+      pageUrl={pageUrl}
+      locale={locale}
+    />
     <slot name="head" />
   </head>
-  <body
-    data-centered={themeConfig.general.centeredLayout}
-    style={`
-      max-width: ${finalWidth};
-      ${shouldUseCustomWidth ? `--content-width: ${widthValue}rem;` : ''}
-    `}
-  >
-    {
-      fadeAnimation ? (
-        <TransitionWrapper type={type} class="layout-wrapper">
-          <slot />
-        </TransitionWrapper>
-      ) : (
-        <div class="layout-wrapper">
-          <slot />
-        </div>
-      )
-    }
+  <body class={bodyClass}>
+    <Header />
+    <SearchPalette />
+    <slot />
+    <Footer />
+    <script>
+      import { onReady } from '../scripts/mount';
+      import { mountImageLoadingStates } from '../scripts/image-loading';
+      import { mountSkipLinkFocus } from '../scripts/skip-link';
 
-    <script is:inline define:vars={{ fadeAnimation }}>
-      if (!fadeAnimation) {
-        const dispatchPageLoad = () => {
-          document.dispatchEvent(new Event('astro:page-load'))
-        }
-
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', dispatchPageLoad, { once: true })
-        } else {
-          queueMicrotask(dispatchPageLoad)
-        }
-      }
+      onReady(mountSkipLinkFocus);
+      onReady(mountImageLoadingStates);
     </script>
   </body>
 </html>
-
-<style is:global>
-  .layout-wrapper {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 0;
-  }
-</style>

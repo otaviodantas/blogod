@@ -1,58 +1,72 @@
 {
-  "name": "astro-chiri",
+  "name": "blogod",
+  "description": "Blog pessoal do Otavio Dantas",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.1",
+  "private": true,
   "license": "MIT",
+  "author": "Otavio Dantas",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otaviodantas/blogod.git"
+  },
+  "homepage": "https://blogod.vercel.app",
+  "keywords": [
+    "astro",
+    "withastro",
+    "astro-theme",
+    "astro-starter",
+    "blog",
+    "markdown",
+    "mdx",
+    "pagefind",
+    "typography"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-    "dev": "tsx scripts/update-link-metadata.ts && astro dev",
-    "build": "pnpm run typecheck && tsx scripts/update-link-metadata.ts && astro build",
-    "typecheck": "pnpm run typecheck:ts && astro check",
-    "typecheck:ts": "tsc --noEmit",
+    "dev": "astro dev",
+    "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "new": "tsx scripts/new-post.ts",
-    "update-link-metadata": "tsx scripts/update-link-metadata.ts",
-    "update-theme": "tsx scripts/update-theme.ts"
+    "check": "astro check",
+    "format": "prettier --write \"src/**/*.{astro,ts,css,md,mdx}\"",
+    "lint": "eslint \"src/**/*.{js,ts,astro}\" \"*.mjs\"",
+    "lint:css": "stylelint \"src/**/*.{css,astro}\""
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.6",
+    "@astrojs/mdx": "^5.0.3",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
-    "astro": "^6.3.7",
-    "astro-og-canvas": "^0.11.1",
-    "canvaskit-wasm": "^0.41.1",
-    "feed": "^5.2.1",
-    "katex": "^0.17.0",
-    "markdown-it": "^14.1.1",
-    "mdast-util-to-string": "^4.0.0",
-    "node-html-parser": "^7.1.0",
+    "astro": "^6.3.1",
+    "astro-expressive-code": "^0.42.0",
     "reading-time": "^1.5.0",
-    "rehype-katex": "^7.0.1",
-    "remark-directive": "^4.0.0",
-    "remark-math": "^6.0.0",
-    "sanitize-html": "^2.17.4",
-    "sharp": "^0.34.5",
-    "unist-util-visit": "^5.1.0"
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-slug": "^6.0.0",
+    "sharp": "^0.34.3",
+    "toc-rail": "^0.1.4"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
-    "@eslint/js": "^10.0.1",
-    "@types/markdown-it": "^14.1.2",
-    "@types/sanitize-html": "^2.16.1",
-    "@typescript-eslint/eslint-plugin": "^8.59.4",
-    "@typescript-eslint/parser": "^8.59.4",
-    "eslint": "^10.4.0",
-    "eslint-config-prettier": "^10.1.8",
+    "@eslint/js": "^9.39.4",
+    "eslint": "^9.39.4",
     "eslint-plugin-astro": "^1.7.0",
-    "globals": "^17.6.0",
+    "pagefind": "^1.5.2",
+    "postcss-html": "^1.8.1",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
-    "tsx": "^4.22.3",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.3"
+    "stylelint": "^17.11.0",
+    "stylelint-config-standard": "^40.0.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.3"
+  },
+  "overrides": {
+    "@typescript-eslint/scope-manager": "8.46.3",
+    "@typescript-eslint/types": "8.46.3",
+    "@typescript-eslint/visitor-keys": "8.46.3",
+    "yaml-language-server": {
+      "yaml": "2.8.4"
+    }
   }
 }

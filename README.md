@@ -1,60 +1,126 @@
-# Chiri 🌸
+# Tone
 
-![screenshot-light](public/screenshots/screenshot-light.png)
-![screenshot-dark](public/screenshots/screenshot-dark.png)
+Minimal Astro blog starter with quiet defaults.
 
-Chiri is a minimal blog theme built with [Astro](https://astro.build), offering customization options while preserving its clean aesthetic.
+<p>
+  <a href="https://hanityx.github.io/astro-tone/">Live demo</a> ·
+  <a href="https://github.com/new?template_name=astro-tone&template_owner=hanityx">Use this template</a>
+</p>
 
-Check the [demo](https://chiri.the3ash.com/) for more details.
+![Tone responsive preview](.github/assets/astro-tone-showcase-1600x900.png)
+
+## Command Palette
+
+Open quick post search with `Cmd`/`Ctrl` + `K`.
+
+<p>
+  <img src=".github/assets/command-palette-light-1600x900.png" alt="Tone command palette in light mode" width="49%" />
+  <img src=".github/assets/command-palette-dark-1600x900.png" alt="Tone command palette in dark mode" width="49%" />
+</p>
 
 ## Features
 
-- [x] Build with Astro
-- [x] Responsive
-- [x] Light / Dark mode
-- [x] MDX
-- [x] KaTeX
-- [x] Sitemap
-- [x] OpenGraph
-- [x] RSS
+- Responsive Astro 6 static site
+- Markdown and MDX posts in `src/content/posts`
+- Posts index with category filters and inline list search
+- `/search` route powered by Pagefind
+- `Cmd`/`Ctrl` + `K` command palette for quick post search
+- Dark mode with CSS tokens
+- Custom code block theme via Expressive Code
+- Related posts, RSS, sitemap, Open Graph metadata, and JSON-LD
+- Optional giscus comments, disabled by default
+- Optional `focusEffect: 'scroll-dark'` for long-form posts
 
-## Getting Started
+<details>
+<summary>Performance Snapshot</summary>
 
-1. [Fork](https://github.com/the3ash/astro-chiri/fork) this repository, or use this template to [create a new repository](https://github.com/new?template_name=astro-chiri&template_owner=the3ash).
+Measured with Lighthouse 12.8.2 against a local production preview on May 20, 2026. Treat these as a reproducible baseline, not a permanent hosted score.
 
-2. Run the following commands:
+| Surface | Mode    | Performance | Accessibility | Best Practices | SEO | FCP    | LCP    | CLS | TBT  |
+| ------- | ------- | ----------- | ------------- | -------------- | --- | ------ | ------ | --- | ---- |
+| Home    | Mobile  | 100         | 100           | 100            | 100 | 830 ms | 981 ms | 0   | 0 ms |
+| Home    | Desktop | 100         | 100           | 100            | 100 | 228 ms | 249 ms | 0   | 0 ms |
+| Post    | Mobile  | 100         | 100           | 100            | 100 | 1.21 s | 1.36 s | 0   | 0 ms |
+| Post    | Desktop | 100         | 100           | 100            | 100 | 349 ms | 372 ms | 0   | 0 ms |
 
-   ```bash
-   git clone <your-repo-url>
+Additional local measurements:
 
-   cd <your-repo-name>
+- Home transfer size: 145 KiB mobile, 152 KiB desktop
+- Post transfer size: 44 KiB mobile, 48 KiB desktop
+- Cumulative Layout Shift: `0` on all measured pages
+- Total Blocking Time: `0 ms` on all measured pages
+- Static output: 9 pages in the current sample set
+- Pagefind index: 4 pages, 828 words
 
-   pnpm install
+Reproduce locally:
 
-   pnpm dev
-   ```
+```bash
+npm run build
+npm run preview -- --host 127.0.0.1 --port 4321
+npx lighthouse http://127.0.0.1:4321/ --output=json
+npx lighthouse http://127.0.0.1:4321/ --preset=desktop --output=json
+```
 
-3. Edit `src/config.ts` and `src/content/about/about.md` to your liking.
+</details>
 
-4. Use `pnpm new <title>` to create new posts, or add your posts to `src/content/posts`.
+## Quick Start
 
-5. Build with `pnpm build` and deploy the generated `dist/` directory to any static hosting platform. Link Card metadata is fetched automatically during `pnpm dev` and `pnpm build` and stored in `src/data/link-card-metadata.json` so cards render as static HTML.
+Requires Node.js 22.12.0 or newer.
 
-&emsp;[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start) [![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/new)
+Create with the Astro CLI:
+
+```bash
+npm create astro@latest astro-tone -- --template hanityx/astro-tone
+cd astro-tone
+npm run dev
+```
+
+Or clone it directly:
+
+```bash
+git clone https://github.com/hanityx/astro-tone.git
+cd astro-tone
+npm install
+npm run dev
+```
+
+The local dev server usually starts at `http://localhost:4321`.
+
+Before publishing your own site, update `astro-theme-config.ts`, replace the
+sample content and assets, then run `npm run check`, `npm run lint`,
+`npm run lint:css`, and `npm run build`.
 
 ## Commands
 
-- `pnpm new <title>` - Create a new post (use `_title` for drafts)
-- `pnpm update-link-metadata` - Refresh metadata for `::link` cards (use `--force` to re-fetch existing entries)
-- `pnpm update-theme` - Update the theme to the latest version
+| Command            | Action                                         |
+| ------------------ | ---------------------------------------------- |
+| `npm run dev`      | Start the local dev server                     |
+| `npm run build`    | Build the site and generate the Pagefind index |
+| `npm run preview`  | Preview the production build                   |
+| `npm run check`    | Run Astro type checks                          |
+| `npm run lint`     | Run ESLint                                     |
+| `npm run lint:css` | Run Stylelint                                  |
+| `npm run format`   | Format source files with Prettier              |
 
-## References
+## Customize
 
-- https://paco.me/
-- https://benji.org/
-- https://shud.in/
-- https://retypeset.radishzz.cc/
+Most site-level settings live in `astro-theme-config.ts`.
+
+The bundled [setup post](src/content/posts/getting-started-v2.md) walks through
+configuration, the project structure, writing posts, replacing the samples,
+deployment, and optional giscus comments.
+
+## Deploy
+
+Tone builds as a static site.
+
+| Setting          | Value           |
+| ---------------- | --------------- |
+| Build command    | `npm run build` |
+| Output directory | `dist`          |
+
+The starter supports domain-root deploys and GitHub Pages project paths.
 
 ## License
 
-MIT
+MIT licensed.
