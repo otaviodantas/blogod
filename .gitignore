@@ -35,5 +35,5 @@ local-docs/
 .playwright-mcp/
 .vercel
 
-# local claude settings
-.claude/settings.local.json
+# claude code local files
+.claude/
