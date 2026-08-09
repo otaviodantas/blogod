@@ -208,6 +208,12 @@
   line-height: var(--leading-relaxed);
 }
 
+.career-item p.career-stack {
+  margin-top: var(--space-2);
+  color: var(--label-primary);
+  font-size: var(--text-footnote);
+}
+
 .career-list {
   display: grid;
   gap: var(--space-10);

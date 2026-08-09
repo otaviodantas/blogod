@@ -73,25 +73,29 @@ const config = {
         period: '2022 — Present',
         title: 'Software Engineer · Syngenta Digital Brasil',
         description:
-          'Founding engineer on a satellite + ML platform that detects nematode crop damage, serving 200K+ requests/day across 7 AWS services. Built the cloud-aware imagery pipeline, scaled the ML workload from EC2 to auto-scaling ECS, and now lead its redesign into a Rails monolith with PostGIS.',
+          'One of the first engineers on a satellite + ML platform that detects nematode crop damage, now serving 200K+ requests a day. Built the cloud-aware imagery pipeline, scaled the ML workload from EC2 to auto-scaling ECS, and lead its ongoing redesign into a Rails monolith with PostGIS.',
+        stack: 'Python · Ruby on Rails · AWS (ECS, Lambda, Fargate) · Terraform · PostGIS · Datadog',
       },
       {
         period: '2021 — 2022',
         title: 'Software Engineer · CATSKILLET',
         description:
-          'Real-time fraud prevention for credit acquisition at Luizalabs (Python, FastAPI, RabbitMQ), and an architecture redesign of a client prospecting platform at Banco BTG (FastAPI, GCP, ArgoCD).',
+          'Real-time fraud prevention for credit acquisition at Luizalabs, the tech arm of one of Brazil’s largest retailers, and an architecture redesign of a client prospecting platform at Banco BTG, a Latin American investment bank.',
+        stack: 'Python · FastAPI · RabbitMQ · PostgreSQL · Redis · GCP · ArgoCD',
       },
       {
         period: '2021',
         title: 'Junior Software Engineer · Connect Group',
         description:
-          'E-commerce and reservation platform for SESI/SEBRAE, delivered end to end in five months (Python, SQLAlchemy, PostgreSQL).',
+          'E-commerce and facility-reservation platform for SESI/SEBRAE, Brazilian institutions that provide training and support to small businesses. Delivered end to end in five months.',
+        stack: 'Python · SQLAlchemy · PostgreSQL',
       },
       {
         period: '2020 — 2021',
         title: 'Intern Developer · Fundação Uniselva',
         description:
-          'Community-facing web applications for public-sector digitization projects in Mato Grosso (Python, Flask, PostgreSQL).',
+          'Community-facing web applications for public-sector digitization projects in Mato Grosso, a state in central-west Brazil.',
+        stack: 'Python · Flask · PostgreSQL · MySQL',
       },
     ],
     interests: [

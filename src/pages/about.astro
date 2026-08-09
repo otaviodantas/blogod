@@ -125,6 +125,11 @@ const profileLinks = [
               <div>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
+                {item.stack && (
+                  <p class="career-stack">
+                    <strong>{item.stack}</strong>
+                  </p>
+                )}
               </div>
             </article>
           ))
