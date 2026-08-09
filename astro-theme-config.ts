@@ -13,9 +13,9 @@ type NavItem = {
 const config = {
   site: {
     /** Production origin, used for canonical links, sitemap, and Open Graph metadata. */
-    url: 'https://blogod.vercel.app',
+    url: 'https://otaviodantas.github.io',
     /** Subpath such as '/repo-name'. Keep empty when deploying at a domain root. */
-    base: '',
+    base: '/blogod',
     lang: 'en',
     locale: 'en_US',
     dateLocale: 'en-US',
@@ -48,7 +48,7 @@ const config = {
   },
 
   social: {
-    website: 'https://blogod.vercel.app', // e.g. 'https://your-site.com'
+    website: 'https://otaviodantas.github.io/blogod', // e.g. 'https://your-site.com'
     email: '', // e.g. 'hello@your-site.com'
     linkedin: 'https://www.linkedin.com/in/ot%C3%A1viodantas',
     github: 'https://github.com/otaviodantas', // e.g. 'https://github.com/yourhandle'
@@ -58,10 +58,10 @@ const config = {
     /** Profile image URL. Leave empty to use the text-only About layout. */
     profileImage: '',
     name: 'Otavio Dantas',
-    role: 'Software engineer working on satellite imagery, ML pipelines, and the cloud infrastructure under them.',
-    location: 'Belo Horizonte, Brazil',
-    focus: 'Geospatial data platforms, AWS infrastructure, and production observability.',
-    lead: 'I build satellite and ML systems for agriculture at Syngenta Digital — APIs, data pipelines, and the AWS infrastructure that keeps them running. This is where I keep the notes behind that work.',
+    role: 'Software engineer working on geospatial platforms for agriculture, the infrastructure under them, and the decisions that keep both legible.',
+    location: 'Aracaju, Brazil',
+    focus: 'Backend systems, cloud infrastructure, CI/CD, and architecture decisions written down.',
+    lead: 'I build satellite systems for agriculture at Syngenta Digital — APIs, AWS infrastructure, delivery pipelines, and the written decisions that keep them maintainable. This is where I keep the notes behind that work.',
     headline: ['No rush,', 'no noise.'],
     statementLabel: 'About',
     statementTitle: 'Notes and ideas.',
@@ -73,8 +73,9 @@ const config = {
         period: '2022 — Present',
         title: 'Software Engineer · Syngenta Digital Brasil',
         description:
-          'One of the first engineers on a satellite + ML platform that detects nematode crop damage, now serving 200K+ requests a day. Built the cloud-aware imagery pipeline, scaled the ML workload from EC2 to auto-scaling ECS, and lead its ongoing redesign into a Rails monolith with PostGIS.',
-        stack: 'Python · Ruby on Rails · AWS (ECS, Lambda, Fargate) · Terraform · PostGIS · Datadog',
+          'Joined a satellite platform that detects nematode crop damage in its first weeks and grew into its technical reference, the person engineering and product both bring decisions to. Own its AWS infrastructure as code, delivery pipelines, and observability; write the RFCs and architecture records behind the bigger changes; and support less experienced developers on the team. Currently leading its redesign into a Rails monolith with PostGIS.',
+        stack:
+          'Python · Ruby on Rails · AWS (ECS, Lambda, Fargate) · Terraform · CircleCI · PostGIS · Datadog',
       },
       {
         period: '2021 — 2022',
@@ -99,8 +100,9 @@ const config = {
       },
     ],
     interests: [
-      'Geospatial data and satellite imagery at scale',
-      'Infrastructure as code and observability that earns its keep',
+      'Computer networks and operating systems',
+      'Running a home lab to break things on purpose',
+      'How the machinery of everyday things actually works',
       'Writing as a way to organize thinking',
     ],
     interestsLabel: 'Interests',
