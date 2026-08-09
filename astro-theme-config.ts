@@ -50,7 +50,7 @@ const config = {
   social: {
     website: 'https://blogod.vercel.app', // e.g. 'https://your-site.com'
     email: '', // e.g. 'hello@your-site.com'
-    linkedin: '', // e.g. 'https://www.linkedin.com/in/yourhandle'
+    linkedin: 'https://www.linkedin.com/in/ot%C3%A1viodantas',
     github: 'https://github.com/otaviodantas', // e.g. 'https://github.com/yourhandle'
   },
 
@@ -58,10 +58,10 @@ const config = {
     /** Profile image URL. Leave empty to use the text-only About layout. */
     profileImage: '',
     name: 'Otavio Dantas',
-    role: 'Writes about technology, software, and whatever else sparks curiosity.',
-    location: 'Brazil',
-    focus: 'Notes, ideas, and experiments.',
-    lead: 'This is my space for notes and ideas. I write about technology, software development, and whatever else sparks my curiosity — no rush, no noise.',
+    role: 'Software engineer working on satellite imagery, ML pipelines, and the cloud infrastructure under them.',
+    location: 'Belo Horizonte, Brazil',
+    focus: 'Geospatial data platforms, AWS infrastructure, and production observability.',
+    lead: 'I build satellite and ML systems for agriculture at Syngenta Digital — APIs, data pipelines, and the AWS infrastructure that keeps them running. This is where I keep the notes behind that work.',
     headline: ['No rush,', 'no noise.'],
     statementLabel: 'About',
     statementTitle: 'Notes and ideas.',
@@ -70,15 +70,34 @@ const config = {
     careerLabel: 'Career',
     career: [
       {
-        period: 'Current',
-        title: 'Software development',
-        description: 'Working on product and technology day to day.',
+        period: '2022 — Present',
+        title: 'Software Engineer · Syngenta Digital Brasil',
+        description:
+          'Founding engineer on a satellite + ML platform that detects nematode crop damage, serving 200K+ requests/day across 7 AWS services. Built the cloud-aware imagery pipeline, scaled the ML workload from EC2 to auto-scaling ECS, and now lead its redesign into a Rails monolith with PostGIS.',
+      },
+      {
+        period: '2021 — 2022',
+        title: 'Software Engineer · CATSKILLET',
+        description:
+          'Real-time fraud prevention for credit acquisition at Luizalabs (Python, FastAPI, RabbitMQ), and an architecture redesign of a client prospecting platform at Banco BTG (FastAPI, GCP, ArgoCD).',
+      },
+      {
+        period: '2021',
+        title: 'Junior Software Engineer · Connect Group',
+        description:
+          'E-commerce and reservation platform for SESI/SEBRAE, delivered end to end in five months (Python, SQLAlchemy, PostgreSQL).',
+      },
+      {
+        period: '2020 — 2021',
+        title: 'Intern Developer · Fundação Uniselva',
+        description:
+          'Community-facing web applications for public-sector digitization projects in Mato Grosso (Python, Flask, PostgreSQL).',
       },
     ],
     interests: [
-      'Technology and software development',
+      'Geospatial data and satellite imagery at scale',
+      'Infrastructure as code and observability that earns its keep',
       'Writing as a way to organize thinking',
-      'Experiments and small discoveries',
     ],
     interestsLabel: 'Interests',
     interestsHeading: 'What the curiosity keeps returning to',
