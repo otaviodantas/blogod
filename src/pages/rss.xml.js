@@ -2,11 +2,10 @@ import { getCollection } from 'astro:content';
 import rss from '@astrojs/rss';
 import { SITE_DESCRIPTION, SITE_LANG, SITE_TITLE } from '../consts';
 import { withBase } from '../utils/paths';
+import { primaryPosts } from '../utils/post-lang';
 
 export async function GET(context) {
-  const posts = (await getCollection('posts'))
-    .filter((p) => !p.data.draft)
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  const posts = primaryPosts((await getCollection('posts')).filter((p) => !p.data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
   return rss({
     title: SITE_TITLE,

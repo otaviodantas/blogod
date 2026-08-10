@@ -5,12 +5,11 @@ import PostFeed from '../../components/PostFeed.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE_DESCRIPTION } from '../../consts';
 import { getUiText } from '../../ui';
+import { primaryPosts } from '../../utils/post-lang';
 
 const tr = getUiText();
 
-const posts = (await getCollection('posts'))
-  .filter((p) => !p.data.draft)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = primaryPosts((await getCollection('posts')).filter((p) => !p.data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <BaseLayout title={tr.postsTitle} description={SITE_DESCRIPTION}>

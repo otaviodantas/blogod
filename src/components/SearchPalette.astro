@@ -1,11 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import { withBase } from '../utils/paths';
+import { primaryPosts } from '../utils/post-lang';
 import { serializeScriptJson } from '../utils/serialize-script-json';
 
-const posts = (await getCollection('posts'))
-  .filter((post) => !post.data.draft)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = primaryPosts((await getCollection('posts')).filter((post) => !post.data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const items = posts.map((post) => ({
   title: post.data.title,

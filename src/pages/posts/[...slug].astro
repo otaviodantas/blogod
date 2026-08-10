@@ -2,20 +2,25 @@
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import readingTimeLib from 'reading-time';
 import PostLayout from '../../layouts/PostLayout.astro';
+import { postLang, primaryPosts, translationId } from '../../utils/post-lang';
 
 export async function getStaticPaths() {
   const allPosts = (await getCollection('posts'))
     .filter((p) => !p.data.draft)
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  const ids = new Set(allPosts.map((p) => p.id));
 
   return allPosts.map((post) => {
     const slug = post.id;
+    const translation = translationId(post.id);
     return {
       params: { slug },
       props: {
         post,
-        relatedPosts: allPosts
-          .filter((p) => p.id !== post.id)
+        translationSlug: ids.has(translation) ? translation : undefined,
+        // Translations are not suggested as related reading.
+        relatedPosts: primaryPosts(allPosts)
+          .filter((p) => p.id !== post.id && p.id !== translation)
           .sort((a, b) => {
             const sameCategoryA = a.data.category && a.data.category === post.data.category ? 1 : 0;
             const sameCategoryB = b.data.category && b.data.category === post.data.category ? 1 : 0;
@@ -30,18 +35,22 @@ export async function getStaticPaths() {
 
 interface Props {
   post: CollectionEntry<'posts'>;
+  translationSlug?: string;
   relatedPosts: CollectionEntry<'posts'>[];
 }
 
-const { post, relatedPosts } = Astro.props;
+const { post, translationSlug, relatedPosts } = Astro.props;
 const { Content } = await render(post);
 
 const readingTime = Math.max(1, Math.round(readingTimeLib(post.body ?? '').minutes));
+const lang = postLang(post.id);
 ---
 
 <PostLayout
   {...post.data}
   readingTime={readingTime}
+  lang={lang}
+  translationSlug={translationSlug}
   focusEffect={post.data.focusEffect}
   relatedPosts={relatedPosts}
 >

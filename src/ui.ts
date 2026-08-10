@@ -4,6 +4,8 @@ const ui = {
   updated: 'Updated',
   relatedPosts: 'Related',
   allPosts: 'All Posts →',
+  // Each label is written in the language it links to.
+  translation: { pt: 'Ler em português', en: 'Read in English' },
   postsEyebrow: 'Archive',
   postsTitle: 'All Posts',
   heroTitle: 'Keep notes.',

@@ -7,14 +7,18 @@ import FormattedDate from '../components/FormattedDate.astro';
 import ImageLightbox from '../components/ImageLightbox.astro';
 import ScrollFocus from '../components/ScrollFocus.astro';
 import BaseLayout from './BaseLayout.astro';
-import { SITE_AUTHOR, SITE_LANG, SITE_TITLE } from '../consts';
+import { SITE_AUTHOR, SITE_TITLE } from '../consts';
 import { getUiText } from '../ui';
 import { withBase } from '../utils/paths';
+import type { PostLang } from '../utils/post-lang';
 import { serializeScriptJson } from '../utils/serialize-script-json';
 
 type Props = CollectionEntry<'posts'>['data'] & {
   readingTime?: number;
   relatedPosts?: CollectionEntry<'posts'>[];
+  lang?: PostLang;
+  /** Set when this post has a counterpart in the other language. */
+  translationSlug?: string;
 };
 
 const {
@@ -26,10 +30,15 @@ const {
   readingTime,
   focusEffect,
   relatedPosts = [],
+  lang = 'en',
+  translationSlug,
 } = Astro.props;
 
 const tr = getUiText();
 const postsBase = withBase('/posts');
+// Only the post body is translated, so the page keeps the site chrome in English
+// and just declares the language of the article itself.
+const translationLang = lang === 'pt' ? 'en' : 'pt';
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const pubDateISO = pubDate.toISOString();
@@ -46,7 +55,7 @@ const jsonLd = serializeScriptJson({
   ...(heroImage && { image: new URL(heroImage.src, Astro.site).href }),
   author: { '@type': 'Person', name: SITE_AUTHOR },
   publisher: { '@type': 'Organization', name: SITE_TITLE },
-  inLanguage: SITE_LANG,
+  inLanguage: lang,
 });
 ---
 
@@ -61,12 +70,21 @@ const jsonLd = serializeScriptJson({
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={jsonLd} />
+    {
+      translationSlug && (
+        <link
+          rel="alternate"
+          hreflang={translationLang}
+          href={new URL(withBase(`/posts/${translationSlug}/`), Astro.site).href}
+        />
+      )
+    }
   </Fragment>
 
   {focusEffect && <ScrollFocus variant={focusEffect} />}
 
   <main id="main-content" class="post-main">
-    <article data-pagefind-body>
+    <article data-pagefind-body lang={lang}>
       <a href={postsBase} class="back-link">{tr.backLink}</a>
 
       <header class="post-header">
@@ -88,6 +106,21 @@ const jsonLd = serializeScriptJson({
                 <span class="meta-updated">
                   {tr.updated} <FormattedDate date={updatedDate} />
                 </span>
+              </>
+            )
+          }
+          {
+            translationSlug && (
+              <>
+                <span class="dot">·</span>
+                <a
+                  class="meta-item"
+                  href={withBase(`/posts/${translationSlug}/`)}
+                  lang={translationLang}
+                  hreflang={translationLang}
+                >
+                  {tr.translation[translationLang]} →
+                </a>
               </>
             )
           }

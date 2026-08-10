@@ -8,11 +8,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { DATE_LOCALE, SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getUiText } from '../ui';
 import { withBase } from '../utils/paths';
+import { primaryPosts } from '../utils/post-lang';
 const tr = getUiText();
 
-const posts = (await getCollection('posts'))
-  .filter((p) => !p.data.draft)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = primaryPosts((await getCollection('posts')).filter((p) => !p.data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const featured = posts.find((post) => post.data.homeFeatured) ?? posts[0];
 const heroCandidates = posts.filter((post) => post.id !== featured?.id);

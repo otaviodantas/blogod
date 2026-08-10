@@ -48,9 +48,9 @@ const config = {
   },
 
   social: {
-    website: 'https://otaviodantas.com', // e.g. 'https://your-site.com'
     email: '', // e.g. 'hello@your-site.com'
     linkedin: 'https://www.linkedin.com/in/ot%C3%A1viodantas',
+    medium: 'https://medium.com/@otavio-dantas',
     github: 'https://github.com/otaviodantas', // e.g. 'https://github.com/yourhandle'
   },
 
