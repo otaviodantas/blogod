@@ -1,9 +1,10 @@
 name: Deploy GitHub Pages
 
+# Publishes only when a release is published — pushes to main just run CI.
+# workflow_dispatch stays for manual re-deploys of the current release.
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
   workflow_dispatch:
 
 permissions:

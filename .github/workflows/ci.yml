@@ -1,11 +1,9 @@
 name: CI
 
-# Only pull requests: pushes to main are validated by the deploy workflow.
-# The PRs here come from dependabot, which the auto-merge job below handles.
 on:
-  pull_request:
+  push:
     branches: [main]
-    paths-ignore:
+    paths-ignore: &paths-ignore
       - 'LICENSE'
       - '.gitignore'
       - '**/*.md'
@@ -15,6 +13,9 @@ on:
       - '**/*.gif'
       - '**/*.webp'
       - '**/*.svg'
+  pull_request:
+    branches: [main]
+    paths-ignore: *paths-ignore
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
