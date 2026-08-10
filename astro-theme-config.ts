@@ -99,14 +99,17 @@ const config = {
         stack: 'Python · Flask · PostgreSQL · MySQL',
       },
     ],
-    interests: [
-      'Computer networks and operating systems',
-      'Running a home lab to break things on purpose',
-      'How the machinery of everyday things actually works',
-      'Writing as a way to organize thinking',
-    ],
-    interestsLabel: 'Interests',
-    interestsHeading: 'What the curiosity keeps returning to',
+    educationLabel: 'Education',
+    education: {
+      period: '2017 — 2023',
+      title:
+        'B.Eng. Computer Engineering · UFMT — Federal University of Mato Grosso, Brazil',
+      highlights: [
+        'Focus on systems, artificial intelligence, and information security',
+        'Member of the CAP research group (Precision Computing and Agronomy) since 2017, applying computing to agronomy problems',
+        'Speaker at ERI-MT, the regional computer science event of Mato Grosso',
+      ],
+    },
   },
 };
 

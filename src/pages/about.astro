@@ -16,9 +16,8 @@ const statementTitle = config.about.statementTitle;
 const statement = config.about.statement;
 const careerLabel = config.about.careerLabel;
 const careerItems = config.about.career;
-const focusItems = config.about.interests;
-const interestsLabel = config.about.interestsLabel;
-const interestsHeading = config.about.interestsHeading;
+const educationLabel = config.about.educationLabel;
+const education = config.about.education;
 const profileLinks = [
   {
     label: 'GitHub',
@@ -137,13 +136,18 @@ const profileLinks = [
       </div>
     </section>
 
-    <section class="about-section" aria-labelledby="about-focus">
-      <p class="section-label">{interestsLabel}</p>
-      <div>
-        <h2 id="about-focus" class="section-heading">{interestsHeading}</h2>
-        <ul class="focus-list">
-          {focusItems.map((item) => <li>{item}</li>)}
-        </ul>
+    <section class="about-section" aria-label={educationLabel}>
+      <p class="section-label">{educationLabel}</p>
+      <div class="career-list">
+        <article class="career-item">
+          <time>{education.period}</time>
+          <div>
+            <h3>{education.title}</h3>
+            <ul class="focus-list">
+              {education.highlights.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        </article>
       </div>
     </section>
   </main>
