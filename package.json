@@ -1,6 +1,6 @@
 {
   "name": "blogod",
-  "description": "Blog pessoal do Otavio Dantas",
+  "description": "Personal blog of Otavio Dantas",
   "type": "module",
   "version": "0.0.1",
   "private": true,
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/otaviodantas/blogod.git"
   },
-  "homepage": "https://blogod.vercel.app",
+  "homepage": "https://otaviodantas.com",
   "keywords": [
     "astro",
     "withastro",
