@@ -38,6 +38,7 @@ jobs:
             echo "ASTRO_SITE_BASE=/$repo_name" >> "$GITHUB_ENV"
           fi
       - run: pnpm install --frozen-lockfile
+      - run: pnpm check
       - run: pnpm build
       - uses: actions/upload-pages-artifact@v5
         with:
