@@ -13,9 +13,9 @@ type NavItem = {
 const config = {
   site: {
     /** Production origin, used for canonical links, sitemap, and Open Graph metadata. */
-    url: 'https://otaviodantas.github.io',
+    url: 'https://otaviodantas.com',
     /** Subpath such as '/repo-name'. Keep empty when deploying at a domain root. */
-    base: '/blogod',
+    base: '',
     lang: 'en',
     locale: 'en_US',
     dateLocale: 'en-US',
@@ -48,7 +48,7 @@ const config = {
   },
 
   social: {
-    website: 'https://otaviodantas.github.io/blogod', // e.g. 'https://your-site.com'
+    website: 'https://otaviodantas.com', // e.g. 'https://your-site.com'
     email: '', // e.g. 'hello@your-site.com'
     linkedin: 'https://www.linkedin.com/in/ot%C3%A1viodantas',
     github: 'https://github.com/otaviodantas', // e.g. 'https://github.com/yourhandle'
